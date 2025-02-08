@@ -1,106 +1,105 @@
-<?php include 'db.php'; ?>
+<!-- index.html - Muestra la flor y la pregunta -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tareas</title>
+    <title>San Valentín</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             text-align: center;
-            margin: 0;
-            padding: 0;
+            background-color: #ffcccc;
+            background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
         }
         .container {
-            max-width: 400px;
-            margin: 50px auto;
+            margin-top: 50px;
             background: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
         }
-        h1 {
-            color: #333;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 70%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .buttons {
+            margin-top: 20px;
         }
         button {
-            padding: 10px;
-            border: none;
-            background: #28a745;
-            color: white;
-            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
             cursor: pointer;
-        }
-        button:hover {
-            background: #218838;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        .task {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background: #fff;
-            margin: 5px 0;
+            border: none;
             border-radius: 5px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
         }
-        .task span {
-            flex-grow: 1;
-            text-align: left;
-        }
-        .completed {
-            text-decoration: line-through;
-            color: #6c757d;
-        }
-        .actions a {
-            text-decoration: none;
-            margin-left: 10px;
-            padding: 5px;
-            border-radius: 5px;
+        button:first-child {
+            background-color: #ff4d4d;
             color: white;
         }
-        .actions .done {
-            background: #007bff;
+        .no-button {
+            position: absolute;
+            background-color: #cccccc;
+            color: black;
         }
-        .actions .delete {
-            background: #dc3545;
+        .decorations {
+            position: absolute;
+            width: 100%;
+            top: 10px;
+            left: 0;
+            font-size: 30px;
+            color: red;
+        }
+        .decorations span {
+            position: absolute;
+            animation: float 3s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .image-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
     </style>
+    <script>
+        function mostrarImagen() {
+            document.querySelector('.image-container').style.display = 'block';
+            setTimeout(() => {
+                alert("¡sabia que no puedes resistirte a mi Hermosa! 💕");
+            }, 500);
+        }
+
+        function moverNo() {
+            let botonNo = document.getElementById('no');
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            botonNo.style.left = x + 'px';
+            botonNo.style.top = y + 'px';
+        }
+    </script>
 </head>
 <body>
+    <div class="decorations">
+        <span style="left: 20%;">❤️</span>
+        <span style="left: 50%;">💖</span>
+        <span style="left: 80%;">💕</span>
+    </div>
     <div class="container">
-        <h1>Lista de Tareas</h1>
-        <form method="POST">
-            <input type="text" name="task" required>
-            <button type="submit">Agregar</button>
-        </form>
-        <ul>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <li class="task">
-                    <span class="<?= $row['completed'] ? 'completed' : '' ?>">
-                        <?= $row['name'] ?>
-                    </span>
-                    <div class="actions">
-                        <a class="done" href="?done=<?= $row['id'] ?>">✔</a>
-                        <a class="delete" href="?delete=<?= $row['id'] ?>">❌</a>
-                    </div>
-                </li>
-            <?php endwhile; ?>
-        </ul>
+        <?php include 'flor.php'; ?>
+        <h2>¿Quieres ser mi San Valentín? 💘</h2>
+        <div class="buttons">
+            <button onclick="mostrarImagen()">Sí</button>
+            <button id="no" class="no-button" onclick="moverNo()">No</button>
+        </div>
+        <div class="image-container">
+            <img src="https://static.vecteezy.com/system/resources/previews/019/865/152/non_2x/cute-little-duck-with-big-love-heart-cartoon-character-isolated-white-background-art-illustration-vector.jpg" alt="San Valentín">
+        </div>
     </div>
 </body>
 </html>
